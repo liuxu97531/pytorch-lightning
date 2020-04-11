@@ -13,7 +13,7 @@ import numpy as np
 
 from pytorch_lightning import _logger as log
 from pytorch_lightning.callbacks.base import Callback
-from pytorch_lightning.utilities import rank_zero_warn
+from pytorch_lightning.utilities import rank_zero_warn, rank_zero_only
 
 
 class ModelCheckpoint(Callback):
