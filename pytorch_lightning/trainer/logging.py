@@ -32,7 +32,6 @@ class TrainerLoggingMixin(ABC):
                 version=self.slurm_job_id,
                 name='lightning_logs'
             )
-            self.logger.rank = 0
         elif logger is False:
             self.logger = None
         else:
@@ -40,7 +39,6 @@ class TrainerLoggingMixin(ABC):
                 self.logger = LoggerCollection(logger)
             else:
                 self.logger = logger
-            self.logger.rank = 0
 
     def log_metrics(self, metrics, grad_norm_dic, step=None):
         """Logs the metric dict passed in.
