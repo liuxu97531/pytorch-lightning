@@ -322,8 +322,6 @@ def test_resume_from_checkpoint_epoch_restored(tmpdir):
 
     model = _new_model()
 
-    trainer_options = dict
-
     # fit model
     trainer = Trainer(**trainer_options)
     trainer.fit(model)
