@@ -29,13 +29,12 @@ from tests.base import (
 def test_hparams_save_load(tmpdir):
     model = DictHparamsModel({'in_features': 28 * 28, 'out_features': 10})
 
-    # fit model
     trainer = Trainer(
         default_root_dir=tmpdir,
         max_epochs=1,
     )
+    # fit model
     result = trainer.fit(model)
-
     assert result == 1
 
     # try to load the model now
@@ -59,14 +58,13 @@ def test_no_val_module(tmpdir):
     # logger file to get meta
     logger = tutils.get_default_testtube_logger(tmpdir, False)
 
-    # fit model
     trainer = Trainer(
         max_epochs=1,
         logger=logger,
         checkpoint_callback=ModelCheckpoint(tmpdir)
     )
+    # fit model
     result = trainer.fit(model)
-
     # training complete
     assert result == 1, 'amp + ddp model failed to complete'
 
@@ -322,8 +320,20 @@ def test_resume_from_checkpoint_epoch_restored(tmpdir):
 
     model = _new_model()
 
-    # fit model
+    trainer_options = dict(
+        progress_bar_refresh_rate=0,
+        max_epochs=2,
+        train_percent_check=0.65,
+        val_percent_check=1,
+        checkpoint_callback=ModelCheckpoint(tmpdir, save_top_k=-1),
+        logger=False,
+        default_root_dir=tmpdir,
+        early_stop_callback=False,
+        val_check_interval=1.,
+    )
+
     trainer = Trainer(**trainer_options)
+    # fit model
     trainer.fit(model)
 
     training_batches = trainer.num_training_batches
