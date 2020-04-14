@@ -70,10 +70,10 @@ def run_model_test(trainer_options, model, on_gpu=True):
     checkpoint = init_checkpoint_callback(logger)
 
     # add these to the trainer options
-    trainer_options.update(dict(
+    trainer_options.update(
         checkpoint_callback=checkpoint,
         logger=logger,
-    ))
+    )
 
     # fit model
     trainer = Trainer(**trainer_options)

@@ -234,13 +234,13 @@ def test_dp_resume(tmpdir):
 
     # init new trainer
     new_logger = tutils.get_default_testtube_logger(tmpdir, version=logger.version)
-    trainer_options.update(dict(
+    trainer_options.update(
         logger=new_logger,
         checkpoint_callback=ModelCheckpoint(tmpdir),
         train_percent_check=0.5,
         val_percent_check=0.2,
         max_epochs=1,
-    ))
+    )
     new_trainer = Trainer(**trainer_options)
 
     # set the epoch start hook so we can predict before the model does the full training
